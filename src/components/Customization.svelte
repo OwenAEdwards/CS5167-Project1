@@ -1,17 +1,32 @@
 <script>
+  import { selectedActivitiesStore } from '../store.js'; 
+  import { onDestroy } from 'svelte';
+
   export let availableActivities = ['Feeling', 'Spending', 'Reflection', 'Image Upload', 'Productivity'];
-  export let selectedActivities = [...availableActivities];
-  export let setSelectedActivities;
-  export let resetSelectedActivities;
+  export let selectedActivities; 
+  export let setSelectedActivities; 
+  export let selectedTheme; // Removed the default initialization
+  export let resetSelectedActivities; 
+  export let applyTheme;  
 
-  export let selectedTheme = 'default';
-  export let applyTheme;
-  export let resetTheme;
+  const unsubscribe = selectedActivitiesStore.subscribe(value => {
+    selectedActivities = value;
+  });
 
-  const themes = ['default', 'dark', 'light', 'colorful'];
+  onDestroy(unsubscribe);
+
+  function handleActivityChange(activity) {
+    const newSelectedActivities = selectedActivities.includes(activity)
+      ? selectedActivities.filter(a => a !== activity)
+      : [...selectedActivities, activity];
+
+    setSelectedActivities(newSelectedActivities);
+  }
+
+  const themes = ['Default', 'Dark', 'Light', 'Colorful'];
 
   function handleThemeChange(theme) {
-    applyTheme(theme);
+    applyTheme(theme.toLowerCase());  // Call the applyTheme function directly
   }
 </script>
 
@@ -28,7 +43,7 @@
             type="checkbox" 
             value={activity} 
             checked={selectedActivities.includes(activity)} 
-            on:change={() => setSelectedActivities(activity)} />
+            on:change={() => handleActivityChange(activity)} />
           {activity}
         </label>
       {/each}
@@ -44,12 +59,11 @@
         <button 
           class="theme-button" 
           on:click={() => handleThemeChange(theme)} 
-          class:selected={theme === selectedTheme}>
+          class:selected={theme.toLowerCase() === selectedTheme}>
           {theme}
         </button>
       {/each}
     </div>
-    <button class="reset-button" on:click={resetTheme}>Reset Theme</button>
   </div>
 </div>
 
@@ -76,26 +90,26 @@
   h3 {
     color: #555;
     margin-bottom: 0.5rem;
-    text-align: center; /* Centered heading */
+    text-align: center;
   }
 
   .checkbox-group {
     display: flex;
-    flex-wrap: wrap; /* Allow wrapping */
-    justify-content: center; /* Center the checkboxes */
+    flex-wrap: wrap;
+    justify-content: center;
     margin-bottom: 1rem;
   }
 
   .activity-label {
     display: flex;
-    align-items: center; /* Align checkbox and text vertically */
-    margin: 0 0.5rem; /* Horizontal margin for spacing */
-    white-space: nowrap; /* Prevent text from wrapping */
+    align-items: center;
+    margin: 0 0.5rem;
+    white-space: nowrap;
   }
 
   .activity-label input {
-    margin-right: 0.2rem; /* Closer spacing between checkbox and label text */
-    accent-color: #007bff; /* Change checkbox color */
+    margin-right: 0.2rem;
+    accent-color: #007bff;
   }
 
   .reset-button {
@@ -107,19 +121,19 @@
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
-    display: block; /* Center button */
+    display: block;
     margin-left: auto;
     margin-right: auto;
   }
 
   .reset-button:hover {
-    background-color: #ffb300; /* Darken on hover */
+    background-color: #ffb300;
   }
 
   .button-group {
     display: flex;
-    justify-content: center; /* Center theme buttons */
-    flex-wrap: wrap; /* Allow wrapping */
+    justify-content: center;
+    flex-wrap: wrap;
     margin-bottom: 1rem;
   }
 
@@ -131,14 +145,14 @@
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
-    margin: 0.25rem; /* Space between buttons */
+    margin: 0.25rem;
   }
 
   .theme-button.selected {
-    background-color: #0056b3; /* Darker color for selected theme */
+    background-color: #0056b3;
   }
 
   .theme-button:hover {
-    background-color: #0056b3; /* Darken on hover */
+    background-color: #0056b3;
   }
 </style>

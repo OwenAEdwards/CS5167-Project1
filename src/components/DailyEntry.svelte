@@ -1,41 +1,19 @@
 <script>
-    import SaveEntry from './SaveEntry.svelte'; // Import SaveEntry component
+    export let activities; // Accept activities as a prop
 
-    let feelings = [
-      "Happy", "Sad", "Excited", "Anxious", "Relaxed", "Angry",
-      "Content", "Frustrated", "Optimistic", "Bored", "Grateful", "Lonely"
-    ];
+    import SaveEntry from './SaveEntry.svelte';
+
+    let feelings = ["Happy", "Sad", "Excited", "Anxious", "Relaxed", "Angry", "Content", "Frustrated", "Optimistic", "Bored", "Grateful", "Lonely"];
     let selectedFeelings = [];
 
     let amountSpent = 0;
     let shortText = "";
     let longText = "";
-
     let imageFile;
     let imageCaption = "";
-
     let productivityRating = 5;
 
     let currentEntry = {
-      date: new Date().toISOString().split('T')[0],
-      feelings: selectedFeelings,
-      amountSpent,
-      shortText,
-      longText,
-      productivityRating,
-      imageFile,
-      imageCaption
-    };
-
-    function handleImageUpload(event) {
-      const file = event.target.files[0];
-      if (file) {
-        imageFile = URL.createObjectURL(file);
-      }
-    }
-
-    function updateEntry() {
-      currentEntry = {
         date: new Date().toISOString().split('T')[0],
         feelings: selectedFeelings,
         amountSpent,
@@ -44,13 +22,33 @@
         productivityRating,
         imageFile,
         imageCaption
-      };
+    };
+
+    function handleImageUpload(event) {
+        const file = event.target.files[0];
+        if (file) {
+            imageFile = URL.createObjectURL(file);
+        }
+    }
+
+    function updateEntry() {
+        currentEntry = {
+            date: new Date().toISOString().split('T')[0],
+            feelings: selectedFeelings,
+            amountSpent,
+            shortText,
+            longText,
+            productivityRating,
+            imageFile,
+            imageCaption
+        };
     }
 </script>
 
 <div class="daily-entry">
     <h2>Daily Entry</h2>
 
+    {#if activities.includes('Feeling')}
     <fieldset class="feelings-fieldset">
         <legend class="feelings-label">Feelings</legend>
         <div id="feelings" class="feelings-container">
@@ -74,26 +72,34 @@
             {/each}
         </div>
     </fieldset>
+    {/if}
 
+    {#if activities.includes('Spending')}
     <label for="amountSpent">Amount Spent</label>
     <input id="amountSpent" type="number" bind:value={amountSpent} on:input={updateEntry} />
+    {/if}
 
+    {#if activities.includes('Reflection')}
     <label for="shortText">Short Text</label>
     <input id="shortText" type="text" bind:value={shortText} on:input={updateEntry} />
-
+    
     <label for="longText">Long Text</label>
     <textarea id="longText" bind:value={longText} on:input={updateEntry}></textarea>
+    {/if}
 
+    {#if activities.includes('Image Upload')}
     <label for="imageUpload">Image Upload</label>
     <input id="imageUpload" type="file" accept="image/*" on:change={handleImageUpload} />
-
+    
     {#if imageFile}
         <img src={imageFile} alt="Uploaded preview" width="200" />
     {/if}
 
     <label for="imageCaption">Image Caption</label>
     <input id="imageCaption" type="text" bind:value={imageCaption} on:input={updateEntry} />
+    {/if}
 
+    {#if activities.includes('Productivity')}
     <label for="productivityRating">Productivity Rating</label>
     <input
         id="productivityRating"
@@ -104,6 +110,7 @@
         on:input={updateEntry}
     />
     <p>Rating: {productivityRating}</p>
+    {/if}
 
     <!-- Save button -->
     <SaveEntry entry={currentEntry} />
@@ -111,7 +118,7 @@
 
 <style>
     .daily-entry {
-        max-width: 800px; /* Increased width */
+        max-width: 800px;
         margin: auto;
         padding: 1.5rem;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -126,13 +133,13 @@
     }
 
     .feelings-fieldset {
-        border: none; /* Remove default border */
-        padding: 0; /* Remove default padding */
-        margin: 1.2rem 0; /* Space out the fieldset */
+        border: none;
+        padding: 0;
+        margin: 1.2rem 0;
     }
 
     .feelings-label {
-        font-size: 1.3rem; /* Larger font size for the feelings label */
+        font-size: 1.3rem;
         font-weight: bold;
         color: #555;
         margin-top: 1.2rem;
@@ -140,15 +147,15 @@
 
     #feelings {
         display: flex;
-        flex-wrap: wrap; /* Allow wrapping for responsiveness */
-        justify-content: center; /* Center the checkboxes */
-        margin: 1rem 0; /* Add some spacing */
+        flex-wrap: wrap;
+        justify-content: center;
+        margin: 1rem 0;
     }
 
     .feeling-option {
         display: flex;
         align-items: center;
-        margin: 0.5rem 1rem; /* Space out options */
+        margin: 0.5rem 1rem;
     }
 
     input[type="text"],

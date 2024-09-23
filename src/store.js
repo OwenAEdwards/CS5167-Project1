@@ -15,6 +15,8 @@ export const entries = writable([
   }
 ]);
 
+export const selectedActivitiesStore = writable(['Feeling', 'Spending', 'Reflection', 'Image Upload', 'Productivity']); // New store for selected activities
+
 export function addEntry(newEntry) {
   entries.update(currentEntries => {
     return [...currentEntries, newEntry];
