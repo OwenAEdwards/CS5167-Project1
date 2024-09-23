@@ -1,8 +1,13 @@
 <script>
+  import { addEntry } from '../store.js';  // Import the addEntry function
+  export let entry;  // Receive the entry from DailyEntry.svelte
+
   let isSaved = false;
 
   function saveEntries() {
-    // Simulate saving process
+    // Add the new entry to the store
+    addEntry(entry);
+
     isSaved = true;
 
     // Reset the visual feedback after a short delay

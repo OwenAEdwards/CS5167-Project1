@@ -12,6 +12,11 @@ export const entries = writable([
     feelings: ['Anxious', 'Frustrated'],
     amountSpent: 100,
     productivityRating: 5,
-  },
-  // Add more entries here
+  }
 ]);
+
+export function addEntry(newEntry) {
+  entries.update(currentEntries => {
+    return [...currentEntries, newEntry];
+  });
+}
