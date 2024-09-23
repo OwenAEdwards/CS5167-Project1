@@ -68,7 +68,7 @@
 
   <div class="summary-item">
     <h3>Most Common Feelings: </h3>
-    <ul>
+    <ul class="feelings-list">
       {#each Object.entries(summary.feelingsFrequency) as [feeling, count]}
         <li>{feeling}: {count} times</li>
       {/each}
@@ -90,17 +90,41 @@
   .performance-overview {
     max-width: 600px;
     margin: auto;
-    padding: 1rem;
+    padding: 1.5rem;
     border: 1px solid #ddd;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
   }
 
   .summary-item {
+    margin-bottom: 1.5rem;
+  }
+
+  h2 {
+    text-align: center;
     margin-bottom: 1rem;
+    color: #333;
   }
 
   h3 {
     font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  .feelings-list {
+    list-style-type: none; /* Remove bullets */
+    padding-left: 0; /* Remove default padding */
+  }
+
+  .feelings-list li {
+    margin-bottom: 0.3rem; /* Add spacing between list items */
+    padding: 0.5rem;
+    border-radius: 4px;
+  }
+
+  p {
+    margin: 0; /* Reset margin for paragraphs */
+    color: #555;
   }
 </style>

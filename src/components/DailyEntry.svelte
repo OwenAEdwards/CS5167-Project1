@@ -51,26 +51,29 @@
 <div class="daily-entry">
     <h2>Daily Entry</h2>
 
-    <label>Feelings</label>
-    <div id="feelings">
-        {#each feelings as feeling}
-            <label>
-                <input
-                    type="checkbox"
-                    value={feeling}
-                    on:change={() => {
-                        if (selectedFeelings.includes(feeling)) {
-                            selectedFeelings = selectedFeelings.filter(f => f !== feeling);
-                        } else {
-                            selectedFeelings = [...selectedFeelings, feeling];
-                        }
-                        updateEntry();
-                    }}
-                >
-                {feeling}
-            </label>
-        {/each}
-    </div>
+    <fieldset class="feelings-fieldset">
+        <legend class="feelings-label">Feelings</legend>
+        <div id="feelings" class="feelings-container">
+            {#each feelings as feeling}
+                <label class="feeling-option">
+                    <input
+                        id={feeling}
+                        type="checkbox"
+                        value={feeling}
+                        on:change={() => {
+                            if (selectedFeelings.includes(feeling)) {
+                                selectedFeelings = selectedFeelings.filter(f => f !== feeling);
+                            } else {
+                                selectedFeelings = [...selectedFeelings, feeling];
+                            }
+                            updateEntry();
+                        }}
+                    >
+                    {feeling}
+                </label>
+            {/each}
+        </div>
+    </fieldset>
 
     <label for="amountSpent">Amount Spent</label>
     <input id="amountSpent" type="number" bind:value={amountSpent} on:input={updateEntry} />
@@ -108,14 +111,76 @@
 
 <style>
     .daily-entry {
-        max-width: 600px;
+        max-width: 800px; /* Increased width */
         margin: auto;
-        padding: 1rem;
+        padding: 1.5rem;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         border-radius: 8px;
+        background-color: #ffffff;
     }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        color: #333;
+    }
+
+    .feelings-fieldset {
+        border: none; /* Remove default border */
+        padding: 0; /* Remove default padding */
+        margin: 1.2rem 0; /* Space out the fieldset */
+    }
+
+    .feelings-label {
+        font-size: 1.3rem; /* Larger font size for the feelings label */
+        font-weight: bold;
+        color: #555;
+        margin-top: 1.2rem;
+    }
+
+    #feelings {
+        display: flex;
+        flex-wrap: wrap; /* Allow wrapping for responsiveness */
+        justify-content: center; /* Center the checkboxes */
+        margin: 1rem 0; /* Add some spacing */
+    }
+
+    .feeling-option {
+        display: flex;
+        align-items: center;
+        margin: 0.5rem 1rem; /* Space out options */
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="file"],
+    textarea,
+    input[type="range"] {
+        width: 100%;
+        padding: 0.5rem;
+        margin-top: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    textarea {
+        resize: vertical;
+        min-height: 80px;
+    }
+
     img {
         margin-top: 10px;
         display: block;
+    }
+
+    p {
+        margin-top: 1rem;
+        font-size: 1.1rem;
+        color: #333;
+    }
+
+    input[type="checkbox"] {
+        margin-right: 0.5rem;
     }
 </style>

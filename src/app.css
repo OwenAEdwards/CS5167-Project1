@@ -1,21 +1,17 @@
+/* Import Google Font (add this to index.html) */
+/* <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> */
+
+body {
+  font-family: 'Roboto', sans-serif; /* Global font */
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5; /* Light background for contrast */
+}
+
 /* Style for h1 to center it */
 main h1 {
   text-align: center;
   margin-bottom: 1rem;
-}
-
-/* UserInfo component styling */
-.user-info {
-  max-width: 600px;
-  margin: auto;
-  padding: 1rem;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  border-radius: 8px;
-  text-align: center;
-}
-
-.user-info h2, .user-info p {
-  margin-bottom: 0.5rem;
 }
 
 /* DailyEntry component styling */
@@ -23,7 +19,7 @@ main h1 {
   max-width: 600px;
   margin: auto;
   padding: 1rem;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
 
@@ -31,9 +27,19 @@ main h1 {
   margin-bottom: 0.5rem;
 }
 
+label {
+  font-family: 'Roboto', sans-serif; /* Consistent font for labels */
+  font-weight: 400; /* Regular weight */
+  color: #666; /* Slightly lighter for labels */
+}
+
 input, textarea {
   width: 100%;
   margin: 0.5rem 0;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
 img {
@@ -41,4 +47,19 @@ img {
   max-width: 100%;
   height: auto;
   display: block;
+}
+
+/* Headings Styles */
+h2 {
+  font-family: 'Roboto', sans-serif; /* Heading font */
+  font-weight: 700; /* Bold for h2 */
+  font-size: 1.5rem; /* Example size */
+  color: #444;
+}
+
+h3 {
+  font-family: 'Roboto', sans-serif; /* Heading font */
+  font-weight: 400; /* Regular for h3 */
+  font-size: 1.25rem; /* Example size */
+  color: #555;
 }

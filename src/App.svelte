@@ -4,6 +4,7 @@
   import PreviousEntries from './components/PreviousEntries.svelte';
   import PerformanceOverview from './components/PerformanceOverview.svelte'; 
   import Customization from './components/Customization.svelte'; 
+  import UserInfo from './components/UserInfo.svelte'; // Import UserInfo component
 
   let currentView = 'new'; 
 
@@ -44,7 +45,10 @@
   <Navbar {currentView} {setView} />
   
   {#if currentView === 'new'}
-    <DailyEntry />
+    <div class="entry-container">
+      <DailyEntry />
+      <UserInfo /> <!-- Include UserInfo beside DailyEntry -->
+    </div>
   {:else if currentView === 'previous'}
     <PreviousEntries />
   {:else if currentView === 'overview'}
@@ -69,5 +73,11 @@
 
   h1 {
     margin-bottom: 1rem;
+  }
+
+  .entry-container {
+    display: flex; /* Use flexbox to align DailyEntry and UserInfo side by side */
+    justify-content: center; /* Center them */
+    gap: 2rem; /* Space between the two components */
   }
 </style>
