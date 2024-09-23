@@ -47,7 +47,7 @@
 
 <main>
   <h1>Goal Tracking and Journaling</h1>
-  <Navbar {currentView} {setView} />
+  <Navbar {setView} />
   
   {#if currentView === 'new'}
     <div class="entry-container">

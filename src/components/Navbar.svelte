@@ -1,10 +1,5 @@
 <script>
-  export let currentView;
   export let setView;
-  
-  // Debugging console logs
-  // console.log('Current view:', currentView);
-  // console.log('setView function:', setView);
 </script>
 
 <nav>
